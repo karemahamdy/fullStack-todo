@@ -1,0 +1,33 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Task {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String   @unique
+  title     String
+  body      String
+  authorId  String   @db.ObjectId // نحتفظ فقط بـ id المستخدم
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  name     String?
+  address  Address?
+  tasksIds String[] @db.ObjectId // قائمة بالمهام المرتبطة (اختياري)
+}
+
+// Address is an embedded document
+type Address {
+  street String
+  city   String
+  state  String
+  zip    String
+}
