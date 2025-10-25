@@ -4,6 +4,15 @@ import { faker } from '@faker-js/faker'
 const prisma = new PrismaClient()
 
 async function main() {
+  await prisma.todo.createMany({
+      data: Array.from({ length: 30 }, () => ({
+          title: faker.lorem.text(),
+          body: faker.lorem.paragraph(),
+          completed: faker.datatype.boolean(),
+      
+            }),
+      ),
+    })                          
   await prisma.user.createMany({
       data: Array.from({ length: 30 }, () => ({
           email: faker.internet.email(),

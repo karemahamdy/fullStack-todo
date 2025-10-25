@@ -7,11 +7,19 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Todo {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body     String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
 model Task {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   slug      String   @unique
   title     String
-  body      String
+  body      String?
   authorId  String   @db.ObjectId
   createdAt DateTime @default(now())
 }
@@ -24,7 +32,6 @@ model User {
   tasksIds String[] @db.ObjectId 
 }
 
-// Address is an embedded document
 type Address {
   street String
   city   String
