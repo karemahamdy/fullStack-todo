@@ -12,7 +12,7 @@ model Task {
   slug      String   @unique
   title     String
   body      String
-  authorId  String   @db.ObjectId // نحتفظ فقط بـ id المستخدم
+  authorId  String   @db.ObjectId
   createdAt DateTime @default(now())
 }
 
@@ -21,7 +21,7 @@ model User {
   email    String   @unique
   name     String?
   address  Address?
-  tasksIds String[] @db.ObjectId // قائمة بالمهام المرتبطة (اختياري)
+  tasksIds String[] @db.ObjectId 
 }
 
 // Address is an embedded document
