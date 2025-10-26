@@ -3,9 +3,9 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const createTodo = async (title: string, body: string, id: string) => {
+export const createTodo = async ({title, body, completed }:{ title: string, body: string, completed: boolean }) => {
   return await prisma.todo.create({
-    data: { title, body, id },
+    data: { title, body, completed },
   })
 }
 

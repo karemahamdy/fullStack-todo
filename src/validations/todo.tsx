@@ -9,6 +9,7 @@ const formSchema = z.object({
   body: z.string().min(2, {
     message: "body must be at least 2 characters.",
   }),
+  completed: z.boolean(),
 })
 
 export default formSchema

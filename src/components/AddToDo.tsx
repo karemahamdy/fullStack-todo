@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import {
@@ -21,20 +21,24 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Checkbox } from "@/components/ui/checkbox";
 import formSchema from "@/validations/todo";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createTodo } from "@/actions/todo.actions";
+import { Textarea } from "./ui/textarea";
 
 export default function AddToDo() {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: { title: "", body: "" },
+    defaultValues: { title: "", body: "" , completed: false},
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Submitted:", values)
+async  function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log("Submitted:", data)
+  await createTodo({title: data.title, body: data.body, completed: data.completed});
   }
 
   return (
@@ -80,7 +84,23 @@ export default function AddToDo() {
                       <FormItem>
                         <FormLabel>body</FormLabel>
                         <FormControl>
-                          <Input placeholder="description" {...field} />
+                          <Textarea placeholder="description" {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="completed"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>completed</FormLabel>
+                        <FormControl>
+                          <Checkbox checked={field.value} onCheckedChange={(checked) => field.onChange(!!checked)} />
                         </FormControl>
                         <FormDescription>
                           This is your public display name.
