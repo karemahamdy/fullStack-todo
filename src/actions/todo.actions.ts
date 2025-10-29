@@ -13,7 +13,12 @@ export const createTodo = async ({ title, body, completed }: { title: string, bo
 }
 
 export const getTodos = async () => {
-  return await prisma.todo.findMany()
+  return await prisma.todo.findMany({
+    orderBy: {
+      createdAt: 'desc', 
+    },
+  }
+  )
 }
 
 export const getTodoById = async (id: string) => {

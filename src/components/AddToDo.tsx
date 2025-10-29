@@ -98,12 +98,14 @@ export default function AddToDo() {
                     control={form.control}
                     name="completed"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <Checkbox checked={field.value} onCheckedChange={(checked) => field.onChange(!!checked)} />
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={(checked) => field.onChange(!!checked)}
+                          />
                         </FormControl>
-                        <FormLabel>completed</FormLabel>
-                        <FormMessage />
+                        <FormLabel className="!mt-0">Completed</FormLabel>
                       </FormItem>
                     )}
                   />
