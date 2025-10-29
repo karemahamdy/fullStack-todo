@@ -43,12 +43,14 @@ async  function onSubmit(data: z.infer<typeof formSchema>) {
 
   return (
     <>
+      <div className="flex justify-end w-full">
       <Dialog>
         <form>
           <DialogTrigger asChild>
-            <Button variant={"destructive"}>
+              <Button variant={"destructive"}>
               <Plus className=" h-4 w-4" />
-              ADD PRODUCT</Button>
+              ADD PRODUCT
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -118,10 +120,10 @@ async  function onSubmit(data: z.infer<typeof formSchema>) {
                 </form>
               </Form>
             </div>
-
           </DialogContent>
         </form>
-      </Dialog>
+        </Dialog>
+      </div>
     </>
   )
 }
