@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -15,7 +14,6 @@ import { Input } from "@/components/ui/input"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -66,10 +64,6 @@ export default function AddToDo() {
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Add TODO</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile here. Click save when you&apos;re
-                done.
-              </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4">
               <Form {...form}>
@@ -81,11 +75,8 @@ export default function AddToDo() {
                       <FormItem>
                         <FormLabel>title</FormLabel>
                         <FormControl>
-                          <Input placeholder="put todo" {...field} />
+                          <Input placeholder="Write a todo" {...field} />
                         </FormControl>
-                        <FormDescription>
-                          This is your public display name.
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -99,9 +90,6 @@ export default function AddToDo() {
                         <FormControl>
                           <Textarea placeholder="description" {...field} />
                         </FormControl>
-                        <FormDescription>
-                          This is your public display name.
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -111,13 +99,10 @@ export default function AddToDo() {
                     name="completed"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>completed</FormLabel>
                         <FormControl>
                           <Checkbox checked={field.value} onCheckedChange={(checked) => field.onChange(!!checked)} />
                         </FormControl>
-                        <FormDescription>
-                          This is your public display name.
-                        </FormDescription>
+                        <FormLabel>completed</FormLabel>
                         <FormMessage />
                       </FormItem>
                     )}
