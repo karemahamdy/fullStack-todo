@@ -45,7 +45,15 @@ export async function TodoTable() {
               </Badge>
             }</TableCell>
             <TableCell className="text-right">
-              <TodoActions id={todo.id} />
+              <TodoActions
+                id={todo.id}
+                todo={{
+                  id: todo.id,
+                  title: todo.title,
+                  body: todo.body,
+                  completed: todo.completed
+                }}
+              />
             </TableCell>
           </TableRow>
         ))}

@@ -4,8 +4,19 @@ import { deleteTodosByid } from "@/actions/todo.actions";
 import React, { useState } from "react";
 import Loading from "@/components/ui/Loading";
 import { useSnack } from "@/components/ui/Snack";
+import TodoFormDialog from "./TodoFormDialog";
 
-export function TodoActions({ id }: { id: string }) {
+interface TodoActionsProps {
+  id: string;
+  todo: {
+    id: string;
+    title: string;
+    body: string;
+    completed: boolean;
+  };
+}
+
+export function TodoActions({ id, todo }: TodoActionsProps) {
   const [loading, setLoading] = useState(false);
   const snack = useSnack();
 
@@ -24,13 +35,19 @@ export function TodoActions({ id }: { id: string }) {
 
   return (
     <div className="flex items-center justify-end gap-2">
-      <button
-        type="button"
-        className="text-gray-500 bg-gray-50 p-2 rounded-2xl hover:underline"
-        onClick={() => console.log("Edit", id)}
-      >
-        <PenIcon size={16} />
-      </button>
+      <TodoFormDialog
+        mode="edit"
+        todo={todo}
+        trigger={
+          <button
+            type="button"
+            className="text-gray-500 bg-gray-50 p-2 rounded-2xl hover:underline"
+          >
+            <PenIcon size={16} />
+          </button>
+        }
+      />
+
       {loading ? (
         <Loading />
       ) : (
@@ -42,7 +59,6 @@ export function TodoActions({ id }: { id: string }) {
           <TrashIcon size={16} />
         </button>
       )}
-
     </div>
   );
 }
