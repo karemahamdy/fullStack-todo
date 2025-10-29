@@ -28,30 +28,41 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createTodo } from "@/actions/todo.actions";
 import { Textarea } from "./ui/textarea";
+import { useState } from "react";
+import { useSnack } from "./ui/Snack";
 
 export default function AddToDo() {
+  const [open, setOpen] = useState(false);
+  const snack = useSnack();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: { title: "", body: "" , completed: false},
+    defaultValues: { title: "", body: "", completed: false },
   })
 
-async  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log("Submitted:", data)
-  await createTodo({title: data.title, body: data.body, completed: data.completed});
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      await createTodo({ title: data.title, body: data.body, completed: data.completed });
+      snack.show("Todo created", "success");
+      setOpen(false); 
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      snack.show("Failed to create todo", "error");
+    }
   }
 
   return (
     <>
       <div className="flex justify-end w-full">
-      <Dialog>
-        <form>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-              <Button variant={"destructive"}>
+            <Button variant={"destructive"}>
               <Plus className=" h-4 w-4" />
               ADD PRODUCT
             </Button>
           </DialogTrigger>
+
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Add TODO</DialogTitle>
@@ -121,7 +132,6 @@ async  function onSubmit(data: z.infer<typeof formSchema>) {
               </Form>
             </div>
           </DialogContent>
-        </form>
         </Dialog>
       </div>
     </>
