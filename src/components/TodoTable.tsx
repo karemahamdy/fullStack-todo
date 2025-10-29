@@ -3,24 +3,18 @@ import {  getTodos } from "@/actions/todo.actions";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { PenIcon, TrashIcon } from "lucide-react"
 import { Todo } from "@/interfaces/index";  
 import { TodoActions } from "./TodoActions";
 
 export async function TodoTable() {
   const todos: Todo[] = await getTodos();
-
-  // await getTodos();
   return (
-    <Table className="">
-    
+    <Table>
       <TableHeader>
         <TableRow className=" border">
           <TableHead className="w-[100px]">id</TableHead>
@@ -36,7 +30,7 @@ export async function TodoTable() {
             <TableCell className="font-medium">{todo.id}</TableCell>
             <TableCell className="break-words whitespace-normal w-[80%]">{todo.title}</TableCell>
             <TableCell className="break-words whitespace-normal w-[80%]">{todo.body}</TableCell>
-            <TableCell>{todo.completed}</TableCell>
+            <TableCell className="text-red">{todo.completed}</TableCell>
             <TableCell className="text-right">
               <TodoActions id={todo.id} />
             </TableCell>
