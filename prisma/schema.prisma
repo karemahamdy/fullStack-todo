@@ -14,18 +14,3 @@ model Todo {
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
 }
-
-model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
-  name     String?
-  address  Address?
-  tasksIds String[] @db.ObjectId 
-}
-
-type Address {
-  street String
-  city   String
-  state  String
-  zip    String
-}
