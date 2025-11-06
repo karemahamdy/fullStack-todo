@@ -1,8 +1,6 @@
 'use server'
-import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
-
-const prisma = new PrismaClient()
+import { prisma } from '../lib/prisma' 
 
 export const createTodo = async ({ title, body, completed }: { title: string, body: string, completed: boolean }) => {
   const todo = await prisma.todo.create({
