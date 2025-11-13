@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import TodoFormDialog from "./TodoFormDialog";
 
-export default function AddToDo() {
+export default function AddToDo({userId}: {userId: string | null}) {
   return (
     <div className="flex justify-end w-full">
       <TodoFormDialog

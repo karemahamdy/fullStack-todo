@@ -1,5 +1,7 @@
 'use client';
+import { createTodo, updateTodo } from "@/actions/todo.actions";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogClose,
@@ -8,8 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -17,16 +18,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Checkbox } from "@/components/ui/checkbox";
-import formSchema from "@/validations/todo";
-import z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createTodo, updateTodo } from "@/actions/todo.actions";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useSnack } from "@/components/ui/Snack";
+import { Textarea } from "@/components/ui/textarea";
+import formSchema from "@/validations/todo";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import z from "zod";
 
 interface TodoFormDialogProps {
   mode: 'create' | 'edit';
@@ -36,6 +36,7 @@ interface TodoFormDialogProps {
     title: string;
     body: string;
     completed: boolean;
+    user_id: string;
   };
 }
 
@@ -49,6 +50,7 @@ export default function TodoFormDialog({ mode, trigger, todo }: TodoFormDialogPr
       title: "",
       body: "",
       completed: false
+
     },
   });
 
@@ -67,7 +69,8 @@ export default function TodoFormDialog({ mode, trigger, todo }: TodoFormDialogPr
         form.reset({
           title: "",
           body: "",
-          completed: false
+          completed: false,
+
         });
       }
     }
@@ -79,11 +82,16 @@ export default function TodoFormDialog({ mode, trigger, todo }: TodoFormDialogPr
         await createTodo({
           title: data.title,
           body: data.body,
-          completed: data.completed
+          completed: data.completed,
+
         });
+        console.log(data);
+
         snack.show("Todo created", "success");
       } else {
         await updateTodo(todo!.id, data.title, data.body, data.completed);
+        console.log(data);
+
         snack.show("Todo updated", "success");
       }
       setOpen(false);

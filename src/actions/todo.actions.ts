@@ -1,10 +1,17 @@
 'use server'
 import { revalidatePath } from 'next/cache'
 import { prisma } from '../lib/prisma' 
+import { auth } from '@clerk/nextjs/server'
 
 export const createTodo = async ({ title, body, completed }: { title: string, body: string, completed: boolean }) => {
+  const { userId } = await auth()
+
+   if (!userId) {
+    throw new Error('User not authenticated')
+   }
+   console.log('User ID:', userId)
   const todo = await prisma.todo.create({
-    data: { title, body, completed },
+    data: { title, body, completed, user_id: userId },
   })
   revalidatePath('/')
   return todo

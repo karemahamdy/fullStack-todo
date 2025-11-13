@@ -52,6 +52,7 @@ export async function TodoTable() {
                   title: todo.title,
                   body: todo.body,
                   completed: todo.completed
+                  ,user_id: todo.user_id
                 }}
               />
             </TableCell>
