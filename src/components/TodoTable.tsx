@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -12,8 +13,8 @@ import { Badge } from "@/components/ui/badge"
 import { Todo } from "@/interfaces/index";  
 import { TodoActions } from "./TodoActions";
 
-export async function TodoTable() {
-  const todos: Todo[] = await getTodos();
+export async function TodoTable({ userId }: { userId: null | string }) {
+  const todos: Todo[] = await getTodos({ userId });
   return (
     <Table>
       <TableHeader>
@@ -59,7 +60,12 @@ export async function TodoTable() {
           </TableRow>
         ))}
       </TableBody>
-  
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={4}>Total Todos</TableCell>
+          <TableCell> {!todos.length ? "you donot have any todo yet" : todos.length }</TableCell>
+        </TableRow>
+      </TableFooter>
     </Table>
   )
 }

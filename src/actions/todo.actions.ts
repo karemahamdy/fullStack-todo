@@ -17,8 +17,11 @@ export const createTodo = async ({ title, body, completed }: { title: string, bo
   return todo
 }
 
-export const getTodos = async () => {
+export const getTodos = async ({ userId }:{ userId: string | null}) => {
   return await prisma.todo.findMany({
+    where: {
+      user_id: userId as string,
+    },
     orderBy: {
       createdAt: 'desc', 
     },

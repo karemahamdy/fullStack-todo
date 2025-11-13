@@ -9,7 +9,7 @@ export default async function Home() {
     <div className="container font-sans min-h-screen p-4 ">
       <main className="flex flex-col gap-[16px] row-start-2 items-center sm:items-start">
         <AddToDo userId={userId} />
-        <TodoTable/>
+        <TodoTable userId={userId}/>
     </main>
     </div>
   );
