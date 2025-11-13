@@ -9,7 +9,7 @@ export const createTodo = async ({ title, body, completed }: { title: string, bo
    if (!userId) {
     throw new Error('User not authenticated')
    }
-   console.log('User ID:', userId)
+   
   const todo = await prisma.todo.create({
     data: { title, body, completed, user_id: userId },
   })
